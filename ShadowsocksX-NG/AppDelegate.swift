@@ -221,6 +221,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 SubscribeManager.instance.updateAllServerFromSubscribe()
                 
             }
+            if defaults.bool(forKey: "UserLogIn") {
+                UserProfile.instance.updateServerByToken()
+            }
+            
             DispatchQueue.main.async {
 
             }
@@ -228,8 +232,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         }
         if !defaults.bool(forKey: "UserLogIn") {
             self.pushLoginWindows()
-        }else {
-            UserProfile.instance.updateServerByToken()
         }
     }
 
