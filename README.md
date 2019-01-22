@@ -2,7 +2,7 @@
 
 基于 [ShadowsocksX-NG-R](https://github.com/qinyuhang/ShadowsocksX-NG-R) 开发的 [ss-panel-v3-mod_Uim](https://github.com/Anankke/ss-panel-v3-mod_Uim) 对接版本，可以通过 ss-panel-v3-mod 的账号密码直接登陆，并自动更新节点
 
-![](/Users/apple/Downloads/ShadowsocksX-NG-R-develop/Resources/login-screenshot.png)
+![](https://github.com/luiyezheng/ShadowsocksX-NG-R-sspanel-v3-mod-uim/blob/master/Resources/login-screenshot.png)
 
 ## 使用教程
 
