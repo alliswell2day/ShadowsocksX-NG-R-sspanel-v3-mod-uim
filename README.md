@@ -16,5 +16,17 @@
 
 - 登陆后下次打开软件不需要重复登陆，除非用户主动退出登录
 - 登陆后会自动更新服务器，也可以通过「Manual Update servers」手动更新
-- 在退出登陆的状态下，Shadowsocks 的连接会关闭，且无法开启
+- 在退出登陆的状态下，Shadowsocks 将无法使用
+
+
+
+## 定制 
+
+Windows 及 OSX 客户端定制请通过 Telegram 联系我
+
+[llliuCh](https://t.me/llliuCh)
+
+客户端开发交流群
+
+[SSPANEL APP开发交流](https://t.me/joinchat/GHj37hMu3q-Ml2lOB_zgCA)
 
