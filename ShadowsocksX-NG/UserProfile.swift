@@ -19,6 +19,7 @@ class UserProfile: NSObject {
     var userID:Int?
     var subLink:String?
     var profileMgr:ServerProfileManager!
+    var baseURL:String = ""
     
     var delegate:UserProfileDelegate?
     
@@ -30,6 +31,10 @@ class UserProfile: NSObject {
         
         if let pwd = defaults.string(forKey: "UserPwd") {
             self.pwd = pwd
+        }
+        
+        if let baseURL = defaults.string(forKey: "baseURL") {
+            self.baseURL = baseURL
         }
         
         profileMgr = ServerProfileManager.instance
@@ -60,12 +65,13 @@ class UserProfile: NSObject {
     }
     
     
-    public func login(email:String, pwd:String) -> Void {
+    public func login(email:String, pwd:String, url:String) -> Void {
         let loginInfo =  ["email":email,"passwd":pwd]
-        
+        self.baseURL = url
         self.delegate?.didStartRequest()
-        
-        sendRequest(url: "https://xiaokeaigo.com/api/token",
+        print("basrURL的地址是")
+        print(self.baseURL)
+        sendRequest(url: "\(baseURL)/api/token",
                     parameters: loginInfo,
                     options: HTTPMethod.post, callback: {resJson in
                         
@@ -136,7 +142,7 @@ class UserProfile: NSObject {
             
         }
         
-        sendRequest(url: "https://xiaokeaigo.com/api/token",
+        sendRequest(url: "\(baseURL)/api/token",
                     parameters: ["email":email,"passwd":pwd],
                     options: HTTPMethod.post, callback: {resJson in
                         
@@ -147,7 +153,7 @@ class UserProfile: NSObject {
                                 UserProfile.instance.userID = data["user_id"] as? Int
                                 UserProfile.instance.save()
                                 
-                                self.sendRequest(url: "https://xiaokeaigo.com/api/node?access_token=\(UserProfile.instance.userToken!)", parameters: [:], options: HTTPMethod.get, callback: {resJson in
+                                self.sendRequest(url: "\(self.baseURL)/api/node?access_token=\(UserProfile.instance.userToken!)", parameters: [:], options: HTTPMethod.get, callback: {resJson in
                                     
                                     updateServerHandler(resJSON: resJson)
                                 })

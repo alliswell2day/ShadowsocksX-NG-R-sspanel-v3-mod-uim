@@ -1,0 +1,21 @@
+
+/* Class = "NSTextFieldCell"; title = "Welcome back"; ObjectID = "8Ub-G6-2mI"; */
+"8Ub-G6-2mI.title" = "欢迎回来";
+
+/* Class = "NSWindow"; title = "Log in"; ObjectID = "F0z-JX-Cv5"; */
+"F0z-JX-Cv5.title" = "登陆";
+
+/* Class = "NSButtonCell"; title = "Login"; ObjectID = "LAH-fm-4TK"; */
+"LAH-fm-4TK.title" = "登陆";
+
+/* Class = "NSTextFieldCell"; placeholderString = "Please enter your mail"; ObjectID = "W3A-YR-Vsu"; */
+"W3A-YR-Vsu.placeholderString" = "请输入邮箱";
+
+/* Class = "NSSecureTextFieldCell"; placeholderString = "Please enter the password"; ObjectID = "cQP-IC-YtN"; */
+"cQP-IC-YtN.placeholderString" = "请输入密码";
+
+/* Class = "NSTextFieldCell"; placeholderString = "Please enter the domain"; ObjectID = "sR7-T5-uK3"; */
+"sR7-T5-uK3.placeholderString" = "请输入网站地址";
+
+/* Class = "NSTextFieldCell"; title = "Username or passworld wrong"; ObjectID = "wfg-nS-hnM"; */
+"wfg-nS-hnM.title" = "用户名或密码错误";

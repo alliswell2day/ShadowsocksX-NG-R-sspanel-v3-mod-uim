@@ -34,6 +34,45 @@ class ServerProfile: NSObject {
     init(uuid: String) {
         self.uuid = uuid
     }
+    static func fromDictionaryAPI(_ data:[String:AnyObject]) -> ServerProfile {
+        let cp = {
+            (profile: ServerProfile) in
+            profile.serverHost = data["server"] as! String
+            profile.serverPort = (data["server_port"] as! NSNumber).uint16Value
+            profile.method = (data["method"] as! String).lowercased()
+            profile.password = data["password"] as! String
+            
+            if let remark = data["remarks"] {
+                profile.remark = remark as! String
+            }
+            if let ssrObfs = data["obfs"] {
+                profile.ssrObfs = (ssrObfs as! String).lowercased()
+            }
+            if let ssrObfsParam = data["obfsparam"] {
+                profile.ssrObfsParam = ssrObfsParam as! String
+            }
+            if let ssrProtocol = data["protocol"] {
+                profile.ssrProtocol = (ssrProtocol as! String).lowercased()
+            }
+            
+            profile.ssrProtocolParam = ""
+            
+            if let ssrGroup = data["group"]{
+                profile.ssrGroup = ssrGroup as! String
+            }
+        }
+        
+        if let id = data["Id"] as? String {
+            let profile = ServerProfile(uuid: id)
+            cp(profile)
+            return profile
+        } else {
+            let profile = ServerProfile()
+            cp(profile)
+            return profile
+        }
+        
+    }
     
     static func fromDictionary(_ data:[String:AnyObject]) -> ServerProfile {
         let cp = {

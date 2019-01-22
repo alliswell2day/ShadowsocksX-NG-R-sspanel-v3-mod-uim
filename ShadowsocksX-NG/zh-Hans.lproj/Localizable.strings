@@ -35,6 +35,11 @@
 /*
  * ./ShadowsocksX-NG/AppDelegate.swift
  */
+"Log in" = "登陆";
+
+"Log out" = "退出登录";
+
+"Manual update servers" = "更新节点";
 
 "Add Shadowsocks Server Profile" = "已添加新Shaodwsocks服务器配置";
 

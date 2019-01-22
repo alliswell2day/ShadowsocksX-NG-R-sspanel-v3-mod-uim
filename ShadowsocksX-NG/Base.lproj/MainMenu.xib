@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -41,6 +41,7 @@
                 <outlet property="statusMenu" destination="Hob-KD-bx9" id="clA-ZW-0pT"/>
                 <outlet property="toggleRunningMenuItem" destination="GSu-Tf-StS" id="XHw-pU-nCa"/>
                 <outlet property="updateSubscribeAtLaunchMenuItem" destination="nQ4-Nv-tox" id="dOD-xa-Rw4"/>
+                <outlet property="userLoginMenuItem" destination="Ddw-Aj-ZZz" id="zD0-UW-N5F"/>
                 <outlet property="whiteListModeMenuItem" destination="RvZ-Zn-29U" id="2v5-Bd-EDj"/>
             </connections>
         </customObject>
@@ -54,6 +55,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="toggleRunning:" target="Voe-Tx-rLC" id="EvE-23-Wiv"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Log in" id="Ddw-Aj-ZZz">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="userLogin:" target="Voe-Tx-rLC" id="05t-6i-Qwt"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="LXP-yK-yQu"/>
@@ -133,6 +140,12 @@
                     </menu>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="WcX-Th-4eP"/>
+                <menuItem title="Manual update servers" id="jvQ-hv-VWy">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="updateServers:" target="Voe-Tx-rLC" id="IoP-hr-leO"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Servers" id="u5M-hQ-VSc">
                     <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
                     <menu key="submenu" title="Servers" id="9Y1-db-3HK">

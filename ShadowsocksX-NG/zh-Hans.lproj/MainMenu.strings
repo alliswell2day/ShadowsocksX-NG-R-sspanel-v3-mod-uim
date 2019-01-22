@@ -8,6 +8,9 @@
 /* Class = "NSMenu"; title = "Servers"; ObjectID = "9Y1-db-3HK"; */
 "9Y1-db-3HK.title" = "服务器";
 
+/* Class = "NSMenuItem"; title = "Log in"; ObjectID = "Ddw-Aj-ZZz"; */
+"Ddw-Aj-ZZz.title" = "登陆";
+
 /* Class = "NSMenuItem"; title = "Turn ShadowsocksX On"; ObjectID = "GSu-Tf-StS"; */
 "GSu-Tf-StS.title" = "打开ShadowsocksX";
 
@@ -120,4 +123,5 @@
 "QJ6-eg-mzv.title" = "编辑订阅";
 
 "QJ6-eg-mzv.title" = "编辑订阅";
+
 

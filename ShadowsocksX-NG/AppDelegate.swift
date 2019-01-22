@@ -20,6 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     var editUserRulesWinCtrl: UserRulesController!
     var httpPreferencesWinCtrl : HTTPPreferencesWindowController!
     var subscribePreferenceWinCtrl: SubscribePreferenceWindowController!
+    var userLoginController: UserLoginController!
     
     var launchAtLoginController: LaunchAtLoginController = LaunchAtLoginController()
     
@@ -27,6 +28,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var statusMenu: NSMenu!
     
+    
+    @IBOutlet weak var userLoginMenuItem: NSMenuItem!
     @IBOutlet weak var runningStatusMenuItem: NSMenuItem!
     @IBOutlet weak var toggleRunningMenuItem: NSMenuItem!
     @IBOutlet weak var proxyMenuItem: NSMenuItem!
@@ -201,8 +204,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         applyConfig()
 //        SyncSSLocal()
 
-        if defaults.bool(forKey: "ConnectAtLaunch") && ServerProfileManager.instance.getActiveProfileId() != "" {
+        if defaults.bool(forKey: "ConnectAtLaunch") && ServerProfileManager.instance.getActiveProfileId() != "" && defaults.bool(forKey: "UserLogIn"){
             defaults.set(false, forKey: "ShadowsocksOn")
+            toggleRunning(toggleRunningMenuItem)
+        }else {
+            defaults.set(true, forKey: "ShadowsocksOn")
             toggleRunning(toggleRunningMenuItem)
         }
         
@@ -212,11 +218,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 self.checkForUpdate(mustShowAlert: false)
             }
             if defaults.bool(forKey: "AutoUpdateSubscribe") {
-                SubscribeManager.instance.updateAllServerFromSubscribe()
+                //SubscribeManager.instance.updateAllServerFromSubscribe()
+                UserProfile.instance.updateServerByToken()
             }
             DispatchQueue.main.async {
 
             }
+
+        }
+        if !defaults.bool(forKey: "UserLogIn") {
+            self.pushLoginWindows()
         }
     }
 
@@ -260,6 +271,34 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     }
     
     // MARK: Mainmenu functions
+    @IBAction func userLogin(_ sender: NSMenuItem) {
+        let defaults = UserDefaults.standard
+        let isLogIn = defaults.bool(forKey: "UserLogIn")
+        
+        if isLogIn {
+            defaults.set(false, forKey: "UserLogIn")
+            defaults.set(true, forKey: "ShadowsocksOn")
+            
+            UserProfile.instance.pwd = ""
+            UserProfile.instance.save()
+            toggleRunning(toggleRunningMenuItem)
+            updateMainMenu()
+            
+        }else {
+            if userLoginController != nil {
+                userLoginController.close()
+            }
+            
+            pushLoginWindows()
+            
+        }
+    }
+    
+    @IBAction func updateServers(_ sender: NSMenuItem) {
+        UserProfile.instance.updateServerByToken()
+    }
+    
+    
     
     @IBAction func toggleRunning(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
@@ -528,6 +567,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         NSApp.activate(ignoringOtherApps: true)
     }
     
+    func pushLoginWindows() {
+        let ctrl = UserLoginController(windowNibName: "UserLoginController")
+        userLoginController = ctrl
+        
+        ctrl.showWindow(self)
+        NSApp.activate(ignoringOtherApps: true)
+        ctrl.window?.makeKeyAndOrderFront(self)
+        
+    }
+    
     func updateLaunchAtLoginMenu() {
         lanchAtLoginMenuItem.state = launchAtLoginController.launchAtLogin ? 1 : 0
     }
@@ -637,6 +686,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             image = NSImage(named: "menu_icon_disabled")!
             image.isTemplate = true
             statusItem!.image = image
+        }
+        
+        //当登陆状态发生变化时对菜单栏进行更新
+        let isLogIn = defaults.bool(forKey: "UserLogIn")
+        
+        if isLogIn {
+            userLoginMenuItem.title = "Log out".localized
+            toggleRunningMenuItem.isHidden = false
+            updateStatusItemUI()
+            
+        }else{
+            userLoginMenuItem.title = "Log in".localized
+            toggleRunningMenuItem.isHidden = true
+            updateStatusItemUI()
+            
         }
 
         ShowNetworkSpeedItem.state          = defaults.bool(forKey: "enable_showSpeed") ? 1 : 0
